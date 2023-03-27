@@ -2,8 +2,46 @@ import { TouchableWithoutFeedback } from "@ui-kitten/components/devsupport";
 import React from "react";
 import {Text,StyleSheet, View, TouchableOpacity, TextInput, ScrollView, KeyboardAvoidingView, Platform, TouchableNativeFeedbackBase, Keyboard, Alert} from 'react-native';
 import * as Style from '../assets/styles';
+import Axios from 'axios';
 
 const AddNote = ({navigation, ...props}) =>{
+
+    async function db_add(){
+        console.log(props.userID);
+        const call = await Axios.post("http://10.0.0.26/create_note" , {note: props.note, userId: props.userID, date:props.date}).catch((err) => console.log(err));
+        return(call.data);
+    }
+
+    async function add_note(){
+        console.log(props.userID);
+        const created = await db_add();
+        if (created == true){
+            Alert.alert('Note has been created',
+            'Press continue to navigate to main menu ',
+            [
+                {
+                    text: 'Continue',
+                    onPress: () => {
+                        navigation.navigate('Notes')
+                    }
+                }
+            ])
+        }
+        else{
+            Alert.alert('Note has not been created',
+            'Press press retry to try again',
+            [
+                {
+                    text: 'Continue',
+                    onPress: () => {
+                        navigation.navigate('AddNote')
+                    }
+                }
+            ]) 
+        }
+    }
+
+
     return(
         <ScrollView>
             <KeyboardAvoidingView behavior= {Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -16,6 +54,7 @@ const AddNote = ({navigation, ...props}) =>{
                                 Alert.alert('Please enter Text');
                             }
                             else{
+                                add_note();
                                 props.handleNote();
                                 navigation.navigate('Notes') 
                             }

@@ -1,10 +1,11 @@
 import React, {useState} from "react";
-import {Text,StyleSheet, View, TouchableOpacity, TextInput, ScrollView, Keyboard, Alert} from 'react-native';
+import {Text,StyleSheet, View, TouchableOpacity, KeyboardAvoidingView, TextInput, ScrollView, Keyboard, Alert, prompt} from 'react-native';
 import * as Style from '../assets/styles';
-import * as eva from '@eva-design/eva';
-import { ApplicationProvider, IconRegistry, Layout, Icon} from '@ui-kitten/components';
-import { EvaIconsPack } from '@ui-kitten/eva-icons';
-import { setStatusBarNetworkActivityIndicatorVisible } from "expo-status-bar";
+//import * as eva from '@eva-design/eva';
+//import { ApplicationProvider, IconRegistry, Layout, Icon} from '@ui-kitten/components';
+//import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import Axios from 'axios';
+
 
 const Notes = ({navigation, ...props}) => {
 
@@ -32,13 +33,32 @@ const Notes = ({navigation, ...props}) => {
         Keyboard.dismiss();
     }
 
+    async function db_share(item){
+        const call = await Axios.post("http://110.0.0.26/share_note" , {user_id: props.userID, note_id: item}).catch((err) => console.log(err));
+        return  call.data;
+    }
+
+   async function shareNote(item){
+        db_share(item[1]);
+        props.sharenote_id = (item[1])
+        props.setShareNote_ID(item[1]);
+        console.log(props.sharenote_id)
+        navigation.navigate("Share_Note");
+    }
+
+
     function deleteNote(index){
         let trash_array = [...props.notes];
         let Totrash = trash_array.splice(index, 1);
         props.setNotes(trash_array) ;
         props.setMoveToTrash(Totrash);
 
-        let trash = [Totrash, ...props.movetoTrash];
+        let trash = props.movetoTrash;
+        for(var x =0; x < Totrash.length; x++){
+            trash.push(Totrash[x]);
+        }
+        let clear =[];
+        props.setMoveToTrash(clear);
         props.setMoveToTrash(trash);
     }
 
@@ -56,30 +76,30 @@ const Notes = ({navigation, ...props}) => {
 
     }
 
-
+    function Logout(){
+         props.setNote('')
+        props.setNotes([]);
+        props.SetShared_Notes([]);
+        props.setMoveToTrash([]);
+        props.SetFirstname('');
+        props.SetLastname('');
+        props.SetuserID('');
+        props.setEmail("");
+        props.setShareNote_ID();
+        navigation.navigate('Login');
+    }
 
     return(
         <View style = {[styles.noteContainer]}>
             <View style = {styles.headingContainer}>
                 <Text style = {styles.heading}>
-                    Notes List...
+                   My Notes
                 </Text>
-                <View style = {{flexDirection: 'row'}}>
-                    <TouchableOpacity style = {[styles.button, {marginLeft: 40}]} onPress = {() => navigation.navigate('DeleteNote')}> 
-                        <IconRegistry icons ={EvaIconsPack} />
-                        <ApplicationProvider {...eva} theme = {eva.light}>
-                            <Icon name = 'trash-2-outline' fill = "white" style = {{width: 25, height: 50, alignSelf: 'center'}}/>
-                        </ApplicationProvider>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style = {[styles.button]} onPress = {()=> navigation.navigate('AddNote')}> 
-                        <IconRegistry icons ={EvaIconsPack} />
-                        <ApplicationProvider {...eva} theme = {eva.light}>
-                            <Icon name = 'plus-outline' fill = "white" style = {{width: 25, height: 50, alignSelf: 'center'}}/>
-                        </ApplicationProvider>
-                    </TouchableOpacity>
-                </View>
-
+                <TouchableOpacity style  ={[styles.searchButton,{width:50}]}onPress={() => Logout()}>
+                            <Text style = {styles.searchButtonText}>
+                            Logout
+                        </Text>
+                        </TouchableOpacity>
             </View>
             <View style = {{flexDirection: 'row', alignItems: 'center'}}>
                 <Text style = {{fontWeight: '700', fontSize: 18, color: Style.color}}>
@@ -89,14 +109,14 @@ const Notes = ({navigation, ...props}) => {
 
             <View style = {styles.divider}></View>
 
-            <View style = {styles.searchContainder}>
+            <View style = {styles.searchContainer}>
                 <TextInput placeholder = "Search.." placeholderTextColor={Style.color} style = {[styles.input, {borderWidth: 3 }]} 
                 value = {search} onChangeText = {(text) => setSearch(text) } />
             
                 <TouchableOpacity style  ={[styles.searchButton,{width:50}]} onPress = {() => searchNotes()}>
-                    <ApplicationProvider {...eva} theme = {eva.light}>
-                        <Icon name = 'search' fill = "white" style = {{width: 25, height: 40, alignSelf: 'center'}}/>
-                    </ApplicationProvider>
+                        <Text style = {styles.searchButtonText}>
+                            Search
+                        </Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style = {styles.searchButton} onPress= {() => clear_all()}>
@@ -119,36 +139,113 @@ const Notes = ({navigation, ...props}) => {
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                             <View style={styles.note}>
                                 <Text style={styles.index}> {index + 1}: </Text>
-                                <Text style={styles.text}>{item}</Text>
+                                <Text style={styles.text}>{item[0]}</Text>
                             </View>
-
+                            <Text>{props.date}</Text>
+                        </View>
+                        <View style={styles.dateContainer}>
                             <TouchableOpacity onPress={() => deleteNote(index)}>
-                            <IconRegistry icons ={EvaIconsPack} />
-                                 <ApplicationProvider {...eva} theme = {eva.light}>
-                                    <Icon name = 'trash-2-outline' fill = {Style.color} style = {{width: 25, height: 50, alignSelf: 'center'}}/>
-                                </ApplicationProvider>
+                            <Text>
+                            Delete
+                             </Text>
                             </TouchableOpacity>
-                    </View>
-                    <View style={styles.dateContainer}>
-                            <Text>Date: {props.date}</Text>
+
+                            <TouchableOpacity onPress={() => shareNote(item)}>
+                            <Text>
+                            Share
+                        </Text>
+                            </TouchableOpacity>
+
                             <TouchableOpacity onPress = {()=> navigation.navigate('EditNote',{
                                 i: index,
-                                n: item
+                                n: item[0],
+                                id: item[1]
                             })}>
-                            <IconRegistry icons ={EvaIconsPack} />
-                                 <ApplicationProvider {...eva} theme = {eva.light}>
-                                    <Icon name = 'edit-2-outline' fill = {Style.color} style = {{width: 25, height: 50, alignSelf: 'center'}}/>
-                                </ApplicationProvider>
+                            
+                            <Text>
+                            Edit
+                        </Text>
                             </TouchableOpacity>
                         </View>
-                        </View>
+                        
+                    </View>
                 )}
-            </ScrollView>
+                
+                {props.shared_notes.length === 0
+                ?
+
+                <View style ={styles.emptyNoteContainer}>
+                    <Text style= {styles.emptyNoteText}></Text>
+                </View>
+                :
+
+                props.shared_notes.map((item, index) =>
+                    <View style={styles.item} key={index}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <View style={styles.note}>
+                                <Text style={styles.index}> {index + 1}: Shared Note </Text>
+                                <Text style={styles.text}>{item[0]}</Text>
+                            </View>
+                            <Text>{props.date}</Text>
+                        </View>
+                        <View style={styles.dateContainer}>
+                            <TouchableOpacity onPress = {()=> navigation.navigate('EditNote',{
+                                i: index,
+                                n: item[0]
+                            })}>
+                            
+                            <Text>
+                            Edit
+                        </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                )}
+        </ScrollView>
+        <TouchableOpacity style = {styles.floatingplusButton} onPress = {()=> navigation.navigate('AddNote')}> 
+        <Text style = {styles.searchButtonText}>
+                            Add+
+                        </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style = {styles.floatingtrashButton} onPress = {() => navigation.navigate('DeleteNote')}> 
+                        <Text style = {styles.searchButtonText}>
+                            Trash
+                        </Text>
+                    </TouchableOpacity>
         </View>
     )
 }
 
 export const styles = StyleSheet.create({
+    container:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    floatingplusButton:{
+        position:'absolute',
+        alignItems: "center",
+        width: 70,
+        borderRadius: 100,
+        justifyContent: 'center',
+        marginLeft: 10,
+        height:70,
+        right: 2,
+        bottom: 65,
+        backgroundColor: Style.color,
+    },
+    floatingtrashButton:{
+        position:'absolute',
+        alignItems: "center",
+        width: 70,
+        borderRadius: 100,
+        justifyContent: 'center',
+        height:70,
+        left: 2,
+        bottom: 65,
+        backgroundColor: Style.color,
+    },
     noteContainer:{
         paddingTop:10,
         paddingHorizontal: 20,
@@ -156,6 +253,7 @@ export const styles = StyleSheet.create({
         opacity: 0.9
     },
     heading: {
+        alignContent:'center',
         fontSize: 30,
         fontWeight: '700',
         color: Style.color
@@ -217,7 +315,7 @@ export const styles = StyleSheet.create({
         fontWeight: '700',
         fontSize: 17,
         alignSelf: 'center'
-    },
+    }, 
     delete:{
         color: Style.color,
         fontWeight: '700',
@@ -241,7 +339,7 @@ export const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 5,
     },
-    searchContainder:{
+    searchContainer:{
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -274,7 +372,56 @@ export const styles = StyleSheet.create({
         flexDirection : 'row',
         justifyContent: 'space-between',
         marginTop: 20    
+    },
+    userContainer:{
+        marginTop: "40%",
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginVertical: 10
+    },
+    createContainer:{
+        marginTop: "10%",
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginVertical: 15
+    },
+    loginButton: {
+        backgroundColor: Style.color,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 80,
+        borderRadius:7,
+        height: 40
+    },
+    create_acc_Button: {
+        backgroundColor: Style.color,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 100,
+        borderRadius:7,
+        height: 50
+    },
+    logo:{
+        marginTop: "25%",
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center'
+    },
+    logo_text:{
+        fontSize: 50, 
+        textAlign: 'center',
+        color: Style.color
+    },
+    logo_under_text:{
+        fontSize: 30, 
+        textAlign: 'center',
+        color: Style.color
     }
+
+
 })
 
 export default Notes;
