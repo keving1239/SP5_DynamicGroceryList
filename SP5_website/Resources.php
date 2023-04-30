@@ -5,8 +5,8 @@
         <meta name="author" content="Phillip Magnicheri">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
-        <link href="SP5_Style.css" rel="stylesheet" type="text/css" />
-        <link href="Home_Style.css" rel="stylesheet" type="text/css"/>
+        <link href="SP5_Style.css" rel="stylesheet" type="text/css"/>
+        <link href="Resources_Style.css" rel="stylesheet" type="text/css"/>
         <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400,700" rel="stylesheet">
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
@@ -27,47 +27,60 @@
         </header>
         <div class = "content">
             <div class = screen-name-wrapper>
-                <h1 id = "screen-name">The Dynamic Grocery List</h1>
+                <h1 id = "screen-name">Behind the Scenes</h1>
             </div>
-            <div class = "member-wrapper">
-                <h1>Project Members</h1>
-                <div class = member-pfp-name>
-                    <img src = "https://lh3.googleusercontent.com/XGCx-C6I4z8a2UQVOrTKs5wMTty7nskA7uLhUvqaeQrRv-aa4ENZCGd0-o2QzSFVX2x2BcLkzoYbidqHMW2IucSYTBqLJZwUePRAgnSTwmzWsaUlNaTu-vkmaPx9rZsk9v8uQnUb=w2400" 
-                    class = "member-pfp" id = "Phillip-pfp" alt="Phillip">
-                    <p>Phillip Magnicheri</p>
-                </div>
-                <div class = member-pfp-name>
-                    <img src = "https://lh3.googleusercontent.com/3FHeIluUNQY6BUOQRvOWchoRn4nbiz61CchyvmWHCeX23UNK2ftUfkj6j_KYhb7w2YVZje4X93w2PrARVYg2Bc5WOU5fFZyqDkgq4otBCrcnP9HdEqrAHH3lSEEkR5jjWhJ6bJ7m=w2400"
-                    class = "member-pfp" id = "Kevin-pfp" alt="Kevin">
-                    <p>Kevin Galdamez</p>
-                </div>
-                <div class = member-pfp-name>
-                    <img src = "https://lh3.googleusercontent.com/Qo1YLhMmb8e03Z-JTUvdqb2Xr22rapvfyhC_VEg_WxoFaNIRw8G1xbjj3oQ2Mmo8m9h9gP-lg8BWsTANDkAY0VDOdDtkSBoitiDLcS9RyfAb_qK9_wx6iHe5kQeFW_94VfyYO4mv=w2400"
-                    class = "member-pfp" id = "Scott-pfp" alt="Scott">
-                    <p>Scott McCandless</p>
-                </div>
-                <div class = member-pfp-name>
-                    <img src = "https://lh3.googleusercontent.com/RjhaK457p0StF8XaMuHAl644Tci28YV-JlXPrAvhbejmyMe8vXI6fD1CZe735HKHj48F-NoEVOgJesIaSc5Rsmt6KohS3GvWyUxsXgA4s4hTVn_toMaH98yXEp_HfJDqYPCg-gY6=s252-p-k"
-                    class = "member-pfp" id = "Ashia-pfp" alt="Ashia">
-                    <p>Ashia Hawkins</p>
-                </div>
-            </div>
-            <div class = "project-content">
-                <h1>Project Overview</h1>
-                <p>The main goal for the project is to create a grocery list app which allows users 
-                to create a list, add items to the list, edit the list, save the list locally 
-                and in a database. With that list, users may share it to other users so that 
-                they can view or edit it. We want to expand this project to include nested 
-                lists, which would allow users to group their list into different stores and needs. 
-                We also want to construct an ability to find coupons and to monetize the applications.</p>
-                <h1>Project Links</h1>
+            <div class = "technologies">
+                <h1 class = "section-name">Technologies</h1>
                 <ul>
-                    <li><a href="About.php">About</a></li>
-                    <li><a href="Demo.php">Illustrations</a></li>
-                    <li><a href="Resources.php">Resources</a></li>
-                    <li><a href="Contact.php">Contact</a></li>
+                    <li>React Native</li>
+                    <li>Microsoft Azure</li>
+                    <li>Visual Studio Code</li>
+                    <li>Javascript, HTML, CSS</li>
+                    <!--<li>Python scrapy</li>-->
+                    <!--<li>Python scikit learn</li>-->
+                    <li>BlueHost</li>
+                    <li>Expo Go</li>
+                    <li>Android Studio</li>
+                    <li>Github</li>
                 </ul>
-                <img id = "logo-cart" src = "/SP5_Website/img/logo_cart.png" alt = "logo-cart">
+                <div class = "img-wrapper" id = "tech-screen">    
+                    <img src = "/SP5_Website/img/tech_img.jpg" alt="tech-screen">
+                    <p> Photo by 
+                        <a href="https://unsplash.com/@lucabravo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+                            target="_blank" rel="noopener noreferrer">Luca Bravo</a> on
+                        <a href="https://unsplash.com/s/photos/technology?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+                            target="_blank" rel="noopener noreferrer">Unsplash</a>
+                    </p>
+	            </div>
+            </div>
+            <div class = "documentation">
+                <h1 class = "section-name">Documentation</h1>
+                <ul>
+                    <li><a href="/SP5_Website/docs/SP5_ProjectPlan.pdf" 
+                    target="_blank" rel="noopener noreferrer">Project Plan</a></li>
+                    <li><a href="/SP5_Website/docs/SP5_SRS.pdf" 
+                    target="_blank" rel="noopener noreferrer">SRS Document</a></li>
+                    <li><a href="/SP5_Website/docs/SP5_UserGuide.pdf" 
+                    target="_blank" rel="noopener noreferrer">User Guide</a></li>
+                    <li><a href = "Home.php" 
+                    target="_blank" rel="noopener noreferrer">Final Project Report</a></li>
+                    <li><a href="Home.php" 
+                    target="_blank" rel="noopener noreferrer">Risk Management Policy</a></li>
+                    <li><a href="Home.php" 
+                    target="_blank" rel="noopener noreferrer">Version Control Policy</a></li>
+                    <li><a href="Home.php" 
+                    target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class = "updates">
+                <h1 class = "section-name">Update Notes: Beta</h1>
+                <ul>
+                    <li>Updated user interface: brand new look!</li>
+                    <li>Added icons for list/item owners.</li>
+                    <li>Added icon denoting whether a list is shared.</li>
+                    <li>Added icon denoting whether an item has been purchased.</li>
+                    <li>Reduced list display in notes folders to only show list name.</li>
+                </ul>
             </div>
         </div>
         <footer>

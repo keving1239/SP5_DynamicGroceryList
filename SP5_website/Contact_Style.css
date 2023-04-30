@@ -1,0 +1,82 @@
+/* Main Content*/
+.content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    grid-template-areas: "h h" "p k" "s a";
+    width: 100%;
+    padding-bottom: 2px;
+    margin-top: 70px;
+    overflow: auto;
+}
+@media screen and (max-width: 1270px) {
+    .content {grid-gap: 10px;}
+    #Phillip, #Scott {margin-left: 10px !important;}
+    #Kevin, #Ashia {margin-right: 10px !important;}
+    .member-pfp {
+        max-width: 216px;
+        max-height: 216px;
+        border: 2px solid #001B2E;
+    }
+}
+@media screen and (max-width: 1170px) {
+    .content {grid-template-areas: "h h" "p p" "k k" "s s" "a a";}
+    #Phillip, #Scott {margin-right: 10px !important;}
+    #Kevin, #Ashia {margin-left: 10px !important;}
+}
+
+/* Content Members*/
+.screen-name-wrapper {grid-area: h;}
+#Phillip {
+    margin-left: 20px;
+    grid-area: p;
+}
+#Kevin {
+    margin-right: 20px;
+    grid-area: k;
+}
+#Scott {
+    margin-left: 20px;
+    grid-area: s;
+}
+#Ashia {
+    margin-right: 20px;
+    grid-area: a;
+}
+#name {
+    color: #001B2E;
+    padding-left: 20px;
+    font-weight: 700;
+    list-style: none;
+    transition: all .5s ease;
+}
+.member-wrapper {
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    height: 350px;
+    border-radius: 8px;
+    transition: all .5s ease;
+}
+.member-wrapper:hover {
+    background-color: #F1F8F7;
+    box-shadow: 0 1px 1px 1px #999999;
+}
+.member-wrapper:hover #name {
+    color: #B76D68;
+    transform: scale(1.1);
+}
+.member-pfp {
+    height: 250px;
+    width: 250px;
+    border-radius: 5px;
+    border: 3px solid #001B2E;
+    box-shadow: 0 1px 1px 1px #999999;
+}
+.member-info {padding-left: 20px;}
+.member-info li {
+    padding: 10px 0;
+    font-size: 15px;
+}
+.member-email {transition: all .5s ease;}
+.member-email:hover {color: #B76D68;}

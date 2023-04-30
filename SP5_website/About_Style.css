@@ -1,0 +1,112 @@
+/* Main Content & Sections */
+.content {
+    display: flex;
+    margin-top: 70px;
+    flex-direction: column;
+    padding: 0;
+    width: 100%;
+    overflow: auto;
+}
+section {
+    position: relative;
+    margin: 20px 0;
+    width: 100%;
+    height: 650px;
+}
+
+/* Section Components */
+section div {position: absolute;}
+#section-name {
+    margin: 10px auto;
+    font-size: 50px;
+    text-align: center;
+	font-weight: 700;
+}
+.text-wrapper {
+	width: 990px;
+	height: 300px;
+	z-index: 1;
+	background-color: #FFFFFF;
+	border-radius: 5px;
+	box-shadow: 0 2px 2px 1px #999999;
+}
+.text-wrapper p {
+    padding: 25px 20px;
+    margin: 0;
+    color: #1F1F1F;
+	line-height: 1.7;
+	font-size: 18px;
+	text-align: left;
+}
+.img-wrapper {
+    width: 540px;
+    height: 360px;
+    z-index: 0;
+    border-radius: 5px;
+    display: inline-block;
+}
+.img-wrapper img, .img-wrapper p, .text-wrapper {transition: all .5s ease;}
+.img-wrapper p {
+    position: absolute;
+    padding: 2px 5px;
+    z-index: 1;
+    margin: 0;
+	width: auto;
+	opacity:0;
+	background-color: #FFFFFF;
+	border-radius: 5px;
+	color: #1F1F1F;
+	font-size: 14px;
+}
+#grocery-bag:hover > p{opacity: .75;}
+#about:hover {background-color: #F5F9FF;}
+#about:hover + #grocery-bag img {transform: scale(1.1);}
+#grocery-bag, #technologies, #grocery-eggs {
+    left: 5%;
+    bottom: 0;
+}
+#about, #design-img, #signup {
+    top: 15%; 
+    right: 5%;
+}
+#design-img p {
+    top: 0;
+    right: 0;
+}
+#design-img:hover > p{opacity: .75;}
+#technologies:hover {background-color: #F5F9FF;}
+#technologies:hover + #design-img img {transform: scale(1.1);}
+#grocery-eggs p, #grocery-bag p {
+    bottom: 0;
+    left: 0;
+}
+#grocery-eggs:hover > p{opacity: .75;}
+#signup:hover {background-color: #F5F9FF;}
+#signup:hover + #grocery-eggs img {transform: scale(1.1);}
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    width: 50%;
+    margin: 0 auto;
+    padding: 0;
+}
+input {
+    display: block;
+    color: #1F1F1F;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #1F1F1F;
+    
+}
+input:focus {
+    outline: 2px solid #4EA699;
+}
+#email {grid-column: 1 / 3;}
+#submit {
+    grid-column: 1 / 3;
+    color: #FAF9F6;
+    background-color: #1F1F1F;
+    cursor: pointer;
+}
+#submit:hover{outline: 3px solid #4EA699;}

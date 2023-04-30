@@ -1,0 +1,74 @@
+.content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "h h" "t d" "t u";
+    width: 100%;
+    margin-top: 70px;
+    padding-bottom: 2px;
+    overflow: auto;
+}
+.screen-name-wrapper {grid-area: h;}
+.technologies,
+.documentation,
+.updates {
+    padding: 10px;
+    line-height: 1.7;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 1px 1px #999999;
+    transition: all .5s ease;
+}
+.technologies:hover,
+.documentation:hover,
+.updates:hover {background-color: #F1F8F7;}
+.section-name {margin: 0;}
+.technologies {
+    position: relative;
+    z-index: 1;
+    grid-area: t;
+    margin: 0 20px;
+}
+
+#tech-screen {
+    position: absolute;
+    display: inline-block;
+    z-index: 2;
+    bottom: 30px;
+    right: 30px;
+    width: 450px;
+    height: 300px;
+    border-radius: 5px;
+    box-shadow: 0 1px 1px 1px #999999;
+}
+#tech-screen p {
+    position: absolute;
+    bottom: 0;
+    padding: 2px 5px;
+    margin: 0;
+    z-index: 3;
+	width: auto;
+	opacity:0;
+	background-color: #FFFFFF;
+	border-radius: 5px;
+	color: #1F1F1F;
+	font-size: 14px;
+    transition: all .5s ease;
+}
+#tech-screen:hover > p{opacity: .75;}
+
+.documentation {
+    grid-area: d;
+    margin-right: 20px;
+}
+.documentation a {
+    font-size: 18px;
+    transition: all .5s ease;
+}
+.documentation a:hover {color: #B76D68;}
+.documentation a:visited {color: #1F1F1F;}
+
+.updates {
+    grid-area: u;
+    margin-top: 20px;
+    margin-right: 20px;
+}
